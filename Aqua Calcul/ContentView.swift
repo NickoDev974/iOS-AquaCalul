@@ -8,34 +8,60 @@
 import SwiftUI
 import SwiftData
 
+// Vue pour le calcul de traitement
+//struct TreatmentView: View {
+//    var body: some View {
+//        Text("Calcul de Traitement")
+        // Ajoutez ici votre interface pour le calcul de traitement
+//    }
+//}
+
+// Vue pour le calcul de bâche
+//struct BacheView: View {
+  //  var body: some View {
+    //    Text("Calcul de Bâche")
+        // Ajoutez ici votre interface pour le calcul de bâche
+   // }
+//}
+
+// Vue pour le calcul Cemaqua
+//struct CemaquaView: View {
+  //  var body: some View {
+    //    Text("Calcul de Cemaqua")
+        // Ajoutez ici votre interface pour le calcul de Cemaqua
+    //}
+//}
+
+// Vue principale avec navigation par onglets
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        TabView {
+            // Onglet pour le calcul de volume
+            VolumeView()
+                .tabItem {
+                    Label("Volume", systemImage: "cube.fill")
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+
+            // Onglet pour le calcul de traitement
+            TreatmentView()
+                .tabItem {
+                    Label("Traitement", systemImage: "pills.fill")
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+
+            // Onglet pour le calcul de bâche
+            BacheView()
+                .tabItem {
+                    Label("Bâche", systemImage: "rectangle.fill.on.rectangle.angled.fill")
                 }
-            }
-        } detail: {
-            Text("Select an item")
+
+            // Onglet pour le calcul Cemaqua
+            CemaquaView()
+                .tabItem {
+                    Label("Cemaqua", systemImage: "paintbrush.fill")
+                }
         }
     }
 
