@@ -12,6 +12,7 @@ struct TreatmentView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()
+                .foregroundColor(.blue)
             
             Image("traitementImage")
                 .resizable()
@@ -41,14 +42,17 @@ struct TreatmentView: View {
             }
             .padding()
             .buttonStyle(.borderedProminent)
+            .bold()
 
             if let calculatedResult = result {
                 Text("Quantité de traitement : ")
                     .font(.title)
+                    
                 + Text("\(calculatedResult, specifier: "%.2f") ml")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
+                    
             }
         }
         .navigationTitle("Calcul de Traitement")

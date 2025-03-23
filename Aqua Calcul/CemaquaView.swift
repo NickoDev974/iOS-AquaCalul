@@ -20,6 +20,7 @@ struct CemaquaView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .padding()
+                .foregroundColor(.blue)
 
             Image("cemaquaImage")
                 .resizable()
@@ -66,6 +67,7 @@ struct CemaquaView: View {
             }
             .padding()
             .buttonStyle(.borderedProminent)
+            .bold()
 
             if let calculatedSurface = surfaceToPaint {
                 Text("La surface totale à peindre est de ")

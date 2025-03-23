@@ -18,8 +18,11 @@ struct VolumeView: View {
             // Titre de la vue
             Text("Calcul du Volume")
                 .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding()
+                .fontWeight(.black)
+                .padding(.bottom, 30.0)
+                .foregroundColor(.blue)
+            
+            
             
             // Image conditionnelle en fonction de la forme sélectionnée
             if selectedShape == .cube {
@@ -78,6 +81,7 @@ struct VolumeView: View {
             }
             .padding()
             .buttonStyle(.borderedProminent)
+            .bold()
 
             if let calculatedVolume = volume {
                 let volumeInLitres = calculatedVolume * 1000 // 1 m³ = 1000 L

@@ -4,6 +4,8 @@ struct BacheView: View {
     @State private var bacheLength: String = ""
     @State private var bacheWidth: String = ""
     @State private var bacheHeight: String = ""
+    @State private var initialBacheLength: Double? = nil
+    @State private var initialBacheWidth: Double? = nil
     @State private var bacheRealLength: Double? = nil
     @State private var bacheRealWidth: Double? = nil
 
@@ -12,6 +14,7 @@ struct BacheView: View {
             Text("Calcul de bâche")
                 .font(.largeTitle)
                 .fontWeight(.bold)
+                .foregroundColor(.blue)
             
             Image("bacheImage")
                 .resizable()
@@ -23,7 +26,7 @@ struct BacheView: View {
             Text("Calcul de la taille de la bâche nécessaire pour un bassin cubique.")
                 .font(.subheadline)
                 .padding(.bottom, 20)
-
+            
             VStack {
                 TextField("Longueur (m)", text: $bacheLength)
                     .keyboardType(.decimalPad)
@@ -38,7 +41,7 @@ struct BacheView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding()
-
+            
             Button(action: {
                 calculateBache()
                 hideKeyboard() // Masque le clavier
@@ -49,11 +52,55 @@ struct BacheView: View {
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    .bold()
             }
-
+            
+            // Affichage des dimensions initiales de la bâche sans marges
+            if let length = initialBacheLength, let width = initialBacheWidth {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Dimensions de la bâche sans marges:")
+                        .font(.headline)
+                        .padding(.bottom, 5)
+                    
+                    HStack {
+                        Text("Longueur: ")
+                        Text("\(String(format: "%.2f", length)) m")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    HStack {
+                        Text("Largeur: ")
+                        Text("\(String(format: "%.2f", width)) m")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding()
+            }
+            
+            // Affichage des dimensions finales avec marges
             if let length = bacheRealLength, let width = bacheRealWidth {
-                Text("La taille réelle de la bâche nécessaire est de \(String(format: "%.2f", length)) m de longueur et \(String(format: "%.2f", width)) m de largeur.")
-                    .padding()
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Dimensions finales avec marges:")
+                        .font(.headline)
+                        .padding(.bottom, 5)
+                    
+                    HStack {
+                        Text("Longueur: ")
+                        Text("\(String(format: "%.2f", length)) m")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    HStack {
+                        Text("Largeur: ")
+                        Text("\(String(format: "%.2f", width)) m")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding()
             }
         }
         .padding()
@@ -71,6 +118,11 @@ struct BacheView: View {
             return
         }
 
+        // Calcul des dimensions de la bâche sans marges
+        initialBacheLength = length + (2 * height)
+        initialBacheWidth = width + (2 * height)
+
+        // Calcul des dimensions finales avec marges
         let bacheL = 1 + length + height * 2
         let bacheW = 1 + width + height * 2
         let availableWidths: [Double] = [4, 6, 8, 10]
